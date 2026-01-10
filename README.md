@@ -3,7 +3,7 @@
 A debugging tool for UNIX pipes.
 
 <p align="center">
-<img width="400" src="doc/img/Argus.png" alt="Argus" title="Argus" />
+<img width="400" src="docs/img/Argus.png" alt="Argus" title="Argus" />
 </p>
 
 Ever wondered what’s *actually* flowing through your pipelines?
@@ -15,7 +15,7 @@ Input:
 cat huge.log | Argus | jq '.error'
 
 Output:
-Argus: 2.1GB | 14M lines | 87k lines/s | json
+Argus: 334MBs | 204.07 MB/s | 1s
 
 ## Why?
 
