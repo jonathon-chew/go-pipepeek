@@ -1,21 +1,21 @@
-# pipepeek 
+# Argus 
 
 A debugging tool for UNIX pipes.
 
 <p align="center">
-<img width="400" src="doc/images/gopher.png" alt="gopher" title="gopher" />
+<img width="400" src="doc/img/gopher.png" alt="gopher" title="gopher" />
 </p>
 
 Ever wondered what’s *actually* flowing through your pipelines?
 
-pipepeek lets you inspect, measure, and understand stdin/stdout —
+Argus lets you inspect, measure, and understand stdin/stdout —
 without breaking your pipes.
 
 Input:
-cat huge.log | pipepeek | jq '.error'
+cat huge.log | Argus | jq '.error'
 
 Output:
-pipepeek: 2.1GB | 14M lines | 87k lines/s | json
+Argus: 2.1GB | 14M lines | 87k lines/s | json
 
 ## Why?
 
@@ -26,9 +26,9 @@ UNIX pipes are powerful — but opaque.
 - `wc` gives counts, not insight
 - `tee` is clumsy and slow
 
-pipepeek gives you visibility without disruption.
+Argus gives you visibility without disruption.
 
-## What pipepeek does
+## What Argus does
 
 - Passes stdin to stdout unchanged
 - Displays live statistics on stderr
@@ -39,16 +39,16 @@ pipepeek gives you visibility without disruption.
 ## Common use cases
 
 ### Inspect a large stream
-cat data.json | pipepeek | jq '.id'
+cat data.json | Argus | jq '.id'
 
 ### Sample records without stopping the pipe
-cat data.json | pipepeek --peek 5 | process
+cat data.json | Argus --peek 5 | process
 
 ### Measure pipeline performance
-producer | pipepeek --rate | consumer
+producer | Argus --rate | consumer
 
 ### Tee output safely
-command | pipepeek --tee raw.log | filter
+command | Argus --tee raw.log | filter
 
 
 ## Design principles
@@ -61,7 +61,7 @@ command | pipepeek --tee raw.log | filter
 
 ## Install
 
-go install github.com/jonathon-chew/pipepeek@latest
+go install github.com/jonathon-chew/Argus@latest
 
 
 ## How is this different from…
@@ -73,7 +73,7 @@ go install github.com/jonathon-chew/pipepeek@latest
 | wc | no insight |
 | tee | clumsy & slow |
 
-pipepeek complements existing tools instead of replacing them.
+Argus complements existing tools instead of replacing them.
 
 
 ## Roadmap
