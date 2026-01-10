@@ -22,19 +22,23 @@
 
 Short / medium / long-term development plan
 ## Short term (next session / next few commits)
+```
 [x] Add bytes/sec and lines/sec (delta-based, render-only).
 [x] Add elapsed time (human readable).
 [] Stabilize the status line layout so it never wraps.
 [] Add TTY detection for stderr:
     if not a TTY, disable ANSI and either print nothing or print occasional newline-terminated status.
-
+```
 ## Medium term
+```
 [] Add stall detection (“no bytes for N seconds”).
 [x] Add human readable bytes (KB/MB/GB) consistently for totals and rates.
 [] Add Ctrl+C cleanup (SIGINT/SIGTERM): clear line + newline, then exit.
 [] Reduce allocations further - in progress
+```
 
 ## Long term
+```
 [] Optional “inspection” features that never break the pipe:
 [] peek/sample first N bytes/records to stderr
 [] format detection hints (json/csv/raw) based on first chunk
@@ -42,3 +46,4 @@ Short / medium / long-term development plan
 [] Optional quality-of-life flags:
     --no-ansi, --force-ansi
     [x] --interval 100ms
+```
