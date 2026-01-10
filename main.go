@@ -12,12 +12,12 @@ func main() {
 	// Constant variables
 	buf := make([]byte, 32*1024)
 	var totalBytes, totalLines, lastBytes int64
-	var printBytes string
+	var printBytes, printPerSecBytes string
 	clearLine := []byte("\r\033[2K")
 
 	// Grab information
 	lastRenderTime := time.Now()
-	startTime := time.Now()
+	startTime := lastRenderTime
 
 	// Variable - users maybe able to update this later
 	renderEvery := 200 * time.Millisecond
@@ -28,7 +28,7 @@ func main() {
 		if n > 0 {
 			totalBytes += int64(n)
 
-			for i := 0; i <= len(buf[0:n])-1; i++ {
+			for i := 0; i < n; i++ {
 				if buf[i] == '\n' {
 					totalLines++
 				}
@@ -57,6 +57,17 @@ func main() {
 					printBytes = intToString(totalBytes)
 				}
 
+				switch {
+				case bytesPerSec >= 1_000_000_000:
+					printPerSecBytes = fmt.Sprintf("%.2f GB/s", bytesPerSec/(1_000_000_000))
+				case bytesPerSec >= 1_000_000:
+					printPerSecBytes = fmt.Sprintf("%.2f MB/s", bytesPerSec/(1_000_000))
+				case bytesPerSec >= 1_000:
+					printPerSecBytes = fmt.Sprintf("%.1f kB/s", bytesPerSec/1_000)
+				default:
+					printPerSecBytes = fmt.Sprintf("%.0f B/s", bytesPerSec)
+				}
+
 				// Human readable lines
 				var buf [32]byte // enough for int64 with commas
 				pos := len(buf)
@@ -82,22 +93,22 @@ func main() {
 					}
 				}
 
-				lineLengthBytes := buf[pos:]
+				lineLength := buf[pos:]
 
 				// Print everything to Stderr
 				os.Stderr.Write(clearLine) // moves cursor back to the start of the line and clears the line
 				os.Stderr.Write([]byte("Bytes read: "))
 				os.Stderr.Write([]byte(printBytes))
 				os.Stderr.Write([]byte(" | Lines read: "))
-				os.Stderr.Write(lineLengthBytes)
+				os.Stderr.Write(lineLength)
 				os.Stderr.Write([]byte(" | Rate: "))
-				os.Stderr.Write([]byte(fmt.Sprintf("%.2f MB/s", bytesPerSec/(1024*1024))))
+				os.Stderr.Write([]byte(printPerSecBytes))
 				os.Stderr.Write([]byte(" | Elapsed: "))
 				os.Stderr.Write([]byte(elapsed.Truncate(time.Second).String()))
 				// os.Stderr.Write([]byte("\n")) // left in for debugging, remove clear line and add this to check out puts
 
 				// reset checked variables
-				lastRenderTime = time.Now()
+				lastRenderTime = now
 				lastBytes = totalBytes
 			}
 
@@ -111,7 +122,7 @@ func main() {
 			// Remove the stat line
 			os.Stderr.Write(clearLine)
 			os.Stderr.Write([]byte("\r"))
-			os.Stderr.Write([]byte("\b"))
+			os.Stderr.Write([]byte("\n"))
 			break
 		}
 
