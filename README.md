@@ -2,6 +2,10 @@
 
 A debugging tool for UNIX pipes.
 
+<p align="center">
+<img width="400" src="doc/images/gopher.png" alt="gopher" title="gopher" />
+</p>
+
 Ever wondered what’s *actually* flowing through your pipelines?
 
 pipepeek lets you inspect, measure, and understand stdin/stdout —
