@@ -22,6 +22,10 @@ func main() {
 
 	if len(os.Args) > 1 {
 		options = cmd.Cmd(os.Args[1:])
+
+		if options.HelpMenu {
+			return
+		}
 	} else {
 		options.Bytes = true
 		options.Lines = true

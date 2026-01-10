@@ -1,16 +1,18 @@
 package cmd
 
 import (
-	"os"
 	"strconv"
+
+	aphrodite "github.com/jonathon-chew/Aphrodite"
 )
 
 type Flags struct {
-	Bytes   bool
-	Lines   bool
-	Speed   bool
-	Elapsed bool
-	Rate    int
+	Bytes    bool
+	Lines    bool
+	Speed    bool
+	Elapsed  bool
+	Rate     int
+	HelpMenu bool
 }
 
 func Cmd(commands []string) Flags {
@@ -38,7 +40,31 @@ func Cmd(commands []string) Flags {
 			}
 		case "--help", "-h":
 			// impliment help
-			os.Stdout.Write([]byte("Unfortunately help is not implimneted yet"))
+			// os.Stdout.Write([]byte("Unfortunately help is not implimneted yet"))
+
+			aphrodite.PrintInfo("--Bytes " + "-b " + "\n")
+			aphrodite.PrintColour("Cyan", "Print bytes"+"\n")
+			aphrodite.PrintByte([]byte("Prints out a running tally of bytes that have been proccesed\n\n"))
+
+			aphrodite.PrintInfo("--Lines " + "-l " + "\n")
+			aphrodite.PrintColour("Cyan", "Print lines"+"\n")
+			aphrodite.PrintByte([]byte("Prints out a running tally of lines that have been proccesed\n\n"))
+
+			aphrodite.PrintInfo("--Speed " + "-s " + "\n")
+			aphrodite.PrintColour("Cyan", "Print speed"+"\n")
+			aphrodite.PrintByte([]byte("Prints out a running tally of speed that the bytes are being passed through\n\n"))
+
+			aphrodite.PrintInfo("--Elapsed " + "-e " + "--time " + "-t " + "\n")
+			aphrodite.PrintColour("Cyan", "Print how much time has passed"+"\n")
+			aphrodite.PrintByte([]byte("Prints out a running tally of how much time has passed since it started\n\n"))
+
+			aphrodite.PrintInfo("--Rate " + "-r " + "\n")
+			aphrodite.PrintColour("Cyan", "Print how fast data is being processed"+"\n")
+			aphrodite.PrintByte([]byte("Determine how regularly to print the stats to the screen in milliseconds\n\n"))
+
+			aphrodite.PrintInfo("If no options are passed in it will print Bytes, Lines, Speed and Time elpased and print to the screen every 200 milliseconds")
+
+			options.HelpMenu = true
 		}
 	}
 
