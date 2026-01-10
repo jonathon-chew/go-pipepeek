@@ -3,7 +3,7 @@
 A debugging tool for UNIX pipes.
 
 <p align="center">
-<img width="400" src="docs/img/Argus.png" alt="Argus" title="Argus" />
+<img width="400" src="docs/img/power_up.png" alt="Argus" title="Argus" />
 </p>
 
 Ever wondered what’s *actually* flowing through your pipelines?
