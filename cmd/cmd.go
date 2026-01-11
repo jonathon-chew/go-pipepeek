@@ -40,6 +40,7 @@ func Cmd(commands []string) Flags {
 					continue
 				}
 				options.Rate = number
+				i++
 			}
 		case "--help", "-h":
 			// impliment help

@@ -28,7 +28,6 @@ func main() {
 		}
 	} else {
 		options.Bytes = true
-		options.Lines = true
 		options.Speed = true
 		options.Elapsed = true
 		options.SilentFinish = false
@@ -36,6 +35,12 @@ func main() {
 
 	if options.Rate == 0 {
 		options.Rate = 200
+	} else {
+		if !options.Bytes && !options.Speed && !options.Elapsed {
+			options.Bytes = true
+			options.Speed = true
+			options.Elapsed = true
+		}
 	}
 
 	// Constant variables
@@ -54,7 +59,7 @@ func main() {
 	for {
 		n, err := os.Stdin.Read(buf)
 
-		if n > 0 {
+		if n > 0 || err == io.EOF {
 			totalBytes += int64(n)
 
 			if options.Lines {
@@ -70,7 +75,7 @@ func main() {
 			elapsed := now.Sub(startTime)
 
 			// update status
-			if now.Sub(lastRenderTime) > renderEvery {
+			if now.Sub(lastRenderTime) > renderEvery || err == io.EOF {
 
 				// Print everything to Stderr
 				os.Stderr.Write(clearLine) // moves cursor back to the start of the line and clears the line
@@ -90,7 +95,6 @@ func main() {
 
 					os.Stderr.Write([]byte(printBytes))
 				}
-				// os.Stderr.Write([]byte(" | Lines: "))
 
 				if options.Lines {
 
@@ -121,10 +125,11 @@ func main() {
 
 					lineLength := buf[pos:]
 
+					// os.Stderr.Write([]byte(" | Lines: "))
 					os.Stderr.Write([]byte(" | "))
 					os.Stderr.Write(lineLength)
 				}
-				// os.Stderr.Write([]byte(" | Rate: "))
+
 				if options.Speed {
 					//Calculations
 					deltaBytes := totalBytes - lastBytes
@@ -142,11 +147,13 @@ func main() {
 						printPerSecBytes = fmt.Sprintf("%.0f B/s", bytesPerSec)
 					}
 
+					// os.Stderr.Write([]byte(" | Rate: "))
 					os.Stderr.Write([]byte(" | "))
 					os.Stderr.Write([]byte(printPerSecBytes))
 				}
-				// os.Stderr.Write([]byte(" | Elapsed: "))
+
 				if options.Elapsed {
+					// os.Stderr.Write([]byte(" | Elapsed: "))
 					os.Stderr.Write([]byte(" | "))
 					os.Stderr.Write([]byte(elapsed.Truncate(time.Second).String()))
 				}
