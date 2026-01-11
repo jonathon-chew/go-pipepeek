@@ -1,2 +1,4 @@
 Archive
 Argus
+dist/*
+.DS_Store

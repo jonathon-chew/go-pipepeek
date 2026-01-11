@@ -7,12 +7,13 @@ import (
 )
 
 type Flags struct {
-	Bytes    bool
-	Lines    bool
-	Speed    bool
-	Elapsed  bool
-	Rate     int
-	HelpMenu bool
+	Bytes        bool
+	Lines        bool
+	Speed        bool
+	Elapsed      bool
+	Rate         int
+	SilentFinish bool
+	HelpMenu     bool
 }
 
 func Cmd(commands []string) Flags {
@@ -29,6 +30,8 @@ func Cmd(commands []string) Flags {
 			options.Speed = true
 		case "--Elapsed", "-e", "--time", "-t":
 			options.Elapsed = true
+		case "--Silent-finish", "-sf":
+			options.SilentFinish = true
 		case "--Rate", "-r":
 			if len(commands[i:]) > 1 {
 				number, ErrConvertingNumber := strconv.Atoi(commands[i+1])

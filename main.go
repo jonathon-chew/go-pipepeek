@@ -31,6 +31,7 @@ func main() {
 		options.Lines = true
 		options.Speed = true
 		options.Elapsed = true
+		options.SilentFinish = false
 	}
 
 	if options.Rate == 0 {
@@ -164,9 +165,11 @@ func main() {
 
 		if err == io.EOF {
 			// Remove the stat line
-			os.Stderr.Write(clearLine)
-			os.Stderr.Write([]byte("\r"))
-			os.Stderr.Write([]byte("\n"))
+			if options.SilentFinish {
+				os.Stderr.Write(clearLine)
+				os.Stderr.Write([]byte("\r"))
+				os.Stderr.Write([]byte("\n"))
+			}
 			break
 		}
 
