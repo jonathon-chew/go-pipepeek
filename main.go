@@ -175,6 +175,7 @@ func main() {
 			if options.SilentFinish {
 				os.Stderr.Write(clearLine)
 				os.Stderr.Write([]byte("\r"))
+			} else {
 				os.Stderr.Write([]byte("\n"))
 			}
 			break
