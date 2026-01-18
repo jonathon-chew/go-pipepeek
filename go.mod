@@ -1,4 +1,4 @@
-module github.com/jonathon-chew/Argus
+module github.com/jonathon-chew/go-pipepeek
 
 go 1.25.5
 

@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/jonathon-chew/Argus/cmd"
+	"github.com/jonathon-chew/go-pipepeek/cmd"
 )
 
 const (
