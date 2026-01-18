@@ -48,12 +48,12 @@ fi
 # ----------------------------
 # Step 3: Run all tests
 # ----------------------------
-echo -e "${CYAN} Running tests...${RESET}"
+echo -e "${CYAN} Running tests... ${RESET}"
 
 if go test -v ./...; then
-  echo -e "${GREEN} All tests passed!${RESET}"
+  echo -e "${GREEN} All tests passed! ${RESET}"
 else
-  echo -e "${RED} Some tests failed!${RESET}"
+  echo -e "${RED} Some tests failed! ${RESET}"
   exit 1
 fi
 
@@ -63,9 +63,9 @@ fi
 if [[ $dry == "0" ]]; then
 gitResponse=$(git status --porcelain)
   if [ -z "$gitResponse" ]; then
-    echo "${GREEN} Working tree clean — no changes to commit.${RESET}"
+    echo "${GREEN} Working tree clean — no changes to commit. ${RESET}"
   else
-    echo "${RED}There are uncommitted changes:${RESET}"
+    echo "${RED} There are uncommitted changes: ${RESET}"
     echo " - Changes not staged for commit: $(git status --porcelain | grep '^ [MADRC]' | wc -l | tr -d ' ')"
     echo " - Changes staged for commit: $(git status --porcelain | grep '^[MADRC]' | wc -l | tr -d ' ')"
     exit 1
@@ -93,7 +93,7 @@ echo -e "${CYAN} Making a dist folder if one does not exist...${RESET}"
 mkdir -p dist
 
 toolName=$(head -n 1 go.mod | sed 's/module github.com\/jonathon-chew\///')
-releaseNumber=$(Thoth --tags)
+releaseNumber=$(repoflow --tags)
 releaseName="$toolName-$releaseNumber"
 
 echo -e "${CYAN} Releasing $releaseName...${RESET}"
