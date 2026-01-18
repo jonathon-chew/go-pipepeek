@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/jonathon-chew/go-pipepeek/cmd"
+	cli "github.com/jonathon-chew/go-pipepeek/internal/cli"
 )
 
 const (
@@ -18,10 +18,10 @@ const (
 
 func main() {
 
-	var options cmd.Flags
+	var options cli.Flags
 
 	if len(os.Args) > 1 {
-		options = cmd.Cmd(os.Args[1:])
+		options = cli.Cmd(os.Args[1:])
 
 		if options.HelpMenu {
 			return

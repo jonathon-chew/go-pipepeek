@@ -38,7 +38,7 @@ fi
 # Step 2: Build all packages
 # ----------------------------
 echo -e "${CYAN}🛠 Building all packages...${RESET}"
-if go build .; then
+if go build ./cmd/pipepeek/main.go; then
   echo -e "${GREEN} Build succeeded!${RESET}"
 else
   echo -e "${RED} Build failed!${RESET}"
