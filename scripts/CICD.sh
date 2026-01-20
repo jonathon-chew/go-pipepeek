@@ -100,15 +100,15 @@ echo -e "${CYAN} Releasing $releaseName...${RESET}"
 
 if [[ $dry == "0" ]]; then
   # Linux
-  GOOS=linux GOARCH=amd64 go build -o dist/$releaseName-linux-amd64
+  GOOS=linux GOARCH=amd64 go build -o dist/$releaseName-linux-amd64 ./cmd/pipepeek
   tar -czvf dist/$releaseName-linux-amd64.tar.gz -C dist $releaseName-linux-amd64
 
   # macOS (Apple Silicon)
-  GOOS=darwin GOARCH=arm64 go build -o dist/$releaseName-darwin-arm64
+  GOOS=darwin GOARCH=arm64 go build -o dist/$releaseName-darwin-arm64 ./cmd/pipepeek
   tar -czvf dist/$releaseName-darwin-arm64.tar.gz -C dist $releaseName-darwin-arm64
 
   # Windows
-  GOOS=windows GOARCH=amd64 go build -o dist/$releaseName-windows-amd64.exe
+  GOOS=windows GOARCH=amd64 go build -o dist/$releaseName-windows-amd64.exe ./cmd/pipepeek
   zip -j dist/$releaseName-windows-amd64.zip dist/$releaseName-windows-amd64.exe
 fi
 
