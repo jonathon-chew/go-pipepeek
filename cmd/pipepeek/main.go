@@ -50,11 +50,17 @@ func main() {
 	clearLine := []byte("\r\033[2K")
 
 	// Grab information
-	lastRenderTime := time.Now()
-	startTime := lastRenderTime
+	startTime := time.Now()
 
 	// Variable - users maybe able to update this later
 	renderEvery := time.Duration(options.Rate) * time.Millisecond
+
+	// This means the stats will appear instantly not wait for the 200 m/s or what ever!
+	lastRenderTime := startTime.Add(-renderEvery)
+	now := time.Now()
+
+	// Thie runs to notify users that something is happening
+	os.Stderr.Write([]byte("waiting for input…"))
 
 	for {
 		n, err := os.Stdin.Read(buf)
@@ -71,7 +77,7 @@ func main() {
 			}
 
 			// What time is it AFTER counting bites and new lines / any other logic
-			now := time.Now()
+			now = time.Now()
 			elapsed := now.Sub(startTime)
 
 			// update status
