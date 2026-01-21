@@ -13,6 +13,8 @@ type Flags struct {
 	Elapsed      bool
 	Rate         int
 	SilentFinish bool
+	Tee          string
+	NoOutput     bool // No output because default is false
 	HelpMenu     bool
 }
 
@@ -32,6 +34,13 @@ func Cmd(commands []string) Flags {
 			options.Elapsed = true
 		case "--Silent-finish", "-sf":
 			options.SilentFinish = true
+		case "--tee", "-te":
+			if len(commands[i:]) > 1 {
+				options.Tee = commands[i+1]
+				i++
+			}
+		case "--no-output", "-no":
+			options.NoOutput = true
 		case "--Rate", "-r":
 			if len(commands[i:]) > 1 {
 				number, ErrConvertingNumber := strconv.Atoi(commands[i+1])

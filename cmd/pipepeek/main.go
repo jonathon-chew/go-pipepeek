@@ -59,6 +59,18 @@ func main() {
 	lastRenderTime := startTime.Add(-renderEvery)
 	now := time.Now()
 
+	// Prep the file
+	var teeFile *os.File
+	if options.Tee != "" {
+		file_Pointer, err := os.OpenFile(options.Tee, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, "error opening tee file:", err)
+		} else {
+			teeFile = file_Pointer
+			defer teeFile.Close()
+		}
+	}
+
 	// Thie runs to notify users that something is happening
 	os.Stderr.Write([]byte("waiting for input…"))
 
@@ -170,9 +182,16 @@ func main() {
 				lastBytes = totalBytes
 			}
 
-			// forward data to the pipe
-			if _, werr := os.Stdout.Write(buf[:n]); werr != nil {
-				log.Fatal(werr)
+			if !options.NoOutput {
+				// forward data to the pipe
+				if _, werr := os.Stdout.Write(buf[:n]); werr != nil {
+					log.Fatal(werr)
+				}
+			}
+
+			if teeFile != nil {
+				// build one status line string or []byte and:
+				teeFile.Write([]byte(printBytes))
 			}
 		}
 
