@@ -24,6 +24,10 @@ func Cmd(commands []string) Flags {
 
 	for i := 0; i < len(commands); i++ {
 		switch commands[i] {
+		case "--standard", "-st":
+			options.Bytes = true
+			options.Speed = true
+			options.Elapsed = true
 		case "--Bytes", "-b":
 			options.Bytes = true
 		case "--Lines", "-l":
@@ -75,7 +79,17 @@ func Cmd(commands []string) Flags {
 			aphrodite.PrintColour("Cyan", "Print how fast data is being processed"+"\n")
 			aphrodite.PrintByte([]byte("Determine how regularly to print the stats to the screen in milliseconds\n\n"))
 
-			aphrodite.PrintInfo("If no options are passed in it will print Bytes, Lines, Speed and Time elpased and print to the screen every 200 milliseconds")
+			aphrodite.PrintInfo("--standard" + "-st" + "\n")
+			aphrodite.PrintColour("Cyan", "Print bytes, speed and time elapsed"+"\n")
+			aphrodite.PrintByte([]byte("If no options are passed in it will print Bytes, Lines, Speed and Time elpased and print to the screen every 200 milliseconds\n\n"))
+
+			aphrodite.PrintInfo("--tee" + "-te" + "\n")
+			aphrodite.PrintColour("Cyan", "Send stats to a new file"+"\n")
+			aphrodite.PrintByte([]byte("Picks up the stats that have been selected and print them out to a new file!\n\n"))
+
+			aphrodite.PrintInfo("--no-output" + "-no" + "\n")
+			aphrodite.PrintColour("Cyan", "Stops anything going to Stdout"+"\n")
+			aphrodite.PrintByte([]byte("Stops send anything down stream, capture output from other files and disregard it\n\n"))
 
 			options.HelpMenu = true
 		}

@@ -191,6 +191,7 @@ func main() {
 
 			if teeFile != nil {
 				// build one status line string or []byte and:
+				printBytes = printBytes + "\n"
 				teeFile.Write([]byte(printBytes))
 			}
 		}
