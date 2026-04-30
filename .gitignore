@@ -3,3 +3,4 @@ go-pipepeek
 dist/*
 .DS_Store
 pipepeek
+TODO.md
